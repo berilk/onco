@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>onco | cancer research graph</title>
+    <meta
+      name="description"
+      content="Onco is an open-source cancer research graph prototype for exploring genes, mutations, therapies, trials, and papers."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./index.html" aria-label="Onco home">
+          <span class="brand-mark">O</span>
+          <span>
+            <strong>onco</strong>
+            <small>research graph</small>
+          </span>
+        </a>
+
+        <div class="search-wrap" role="search">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path
+              d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <input
+            id="searchInput"
+            type="search"
+            autocomplete="off"
+            placeholder="search kras, egfr, nsclc, sotorasib..."
+            aria-label="Search the oncology graph"
+          />
+        </div>
+
+        <nav class="top-actions" aria-label="App tools">
+          <button class="icon-button" id="resetButton" title="Reset graph" aria-label="Reset graph">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button class="icon-button" id="exportButton" title="Export selection" aria-label="Export selection">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main class="workspace">
+        <aside class="left-panel" aria-label="Graph filters">
+          <section class="panel-section">
+            <h1>see oncology evidence as a living graph.</h1>
+            <p>
+              query cancer types, biomarkers, therapies, trials, papers, and resistance mechanisms. onco keeps every
+              insight connected to a source.
+            </p>
+          </section>
+
+          <section class="panel-section">
+            <div class="section-title">
+              <span>entity types</span>
+              <button id="allTypesButton">All</button>
+            </div>
+            <div class="type-grid" id="typeFilters"></div>
+          </section>
+
+          <section class="panel-section">
+            <div class="section-title">
+              <span>relationship depth</span>
+              <output id="depthValue" for="depthSlider">2</output>
+            </div>
+            <input id="depthSlider" class="range" type="range" min="1" max="3" value="2" />
+          </section>
+
+          <section class="panel-section">
+            <div class="section-title">
+              <span>evidence threshold</span>
+              <output id="confidenceValue" for="confidenceSlider">60%</output>
+            </div>
+            <input id="confidenceSlider" class="range" type="range" min="40" max="95" step="5" value="60" />
+          </section>
+
+          <section class="panel-section">
+            <div class="section-title">
+              <span>signal</span>
+            </div>
+            <div class="stat-list">
+              <div>
+                <strong id="nodeCount">0</strong>
+                <span>nodes</span>
+              </div>
+              <div>
+                <strong id="edgeCount">0</strong>
+                <span>relationships</span>
+              </div>
+              <div>
+                <strong id="sourceCount">0</strong>
+                <span>sources</span>
+              </div>
+              <div>
+                <strong id="trialCount">0</strong>
+                <span>trials</span>
+              </div>
+              <div>
+                <strong id="paperCount">0</strong>
+                <span>papers</span>
+              </div>
+              <div>
+                <strong id="medianConfidence">0%</strong>
+                <span>median score</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-section notice">
+            <strong>research aid, not medical advice.</strong>
+            <span>use this to prepare better questions for a clinician or research team.</span>
+          </section>
+        </aside>
+
+        <section class="graph-stage" aria-label="Interactive knowledge graph">
+          <div class="graph-toolbar">
+            <div class="segmented" aria-label="Preset queries">
+              <button class="preset active" data-query="KRAS G12C">KRAS G12C</button>
+              <button class="preset" data-query="EGFR exon 19">EGFR</button>
+              <button class="preset" data-query="BRCA ovarian">BRCA</button>
+              <button class="preset" data-query="ALK resistance">ALK</button>
+            </div>
+            <span id="resultSummary">showing starter graph</span>
+          </div>
+          <svg id="graph" role="img" aria-label="Cancer research knowledge graph"></svg>
+        </section>
+
+        <aside class="right-panel" aria-label="Selected evidence">
+          <section class="detail-card" id="detailCard">
+            <div class="empty-state">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M12 3v18M5 8h14M5 16h14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <h2>select a node or relationship</h2>
+              <p>onco will show why it matters, what evidence links it, and what to ask next.</p>
+            </div>
+          </section>
+
+          <section class="question-card">
+            <div class="section-title">
+              <span>research questions</span>
+            </div>
+            <ul id="questionsList"></ul>
+          </section>
+        </aside>
+
+        <section class="lower-panel evidence-panel" aria-label="Evidence matrix">
+          <div class="section-title">
+            <span>evidence matrix</span>
+            <button id="sortEvidenceButton">sort by score</button>
+          </div>
+          <div class="matrix" id="evidenceMatrix"></div>
+        </section>
+
+        <section class="lower-panel trial-panel" aria-label="Trial browser">
+          <div class="section-title">
+            <span>trial browser</span>
+            <button id="trialModeButton">recruiting first</button>
+          </div>
+          <div class="trial-list" id="trialList"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
