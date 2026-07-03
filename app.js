@@ -78,6 +78,22 @@ const meterFill = document.querySelector("#meterFill");
 const curiosityList = document.querySelector("#curiosityList");
 const pathStrip = document.querySelector("#pathStrip");
 const focusReadout = document.querySelector("#focusReadout");
+const researchBrief = document.querySelector("#researchBrief");
+
+const cancerBriefs = {
+  nsclc: {
+    title: "lung / nsclc",
+    copy: "begin with driver alterations, then compare therapy evidence and resistance uncertainty."
+  },
+  brca: {
+    title: "ovarian / brca",
+    copy: "follow dna repair logic from brca into hrd, parp therapy, solo1, and the hrd assay debate."
+  },
+  braf: {
+    title: "melanoma / braf",
+    copy: "explore mapk pathway gravity, targeted therapy logic, and the unresolved sequencing question with pd-1 blockade."
+  }
+};
 
 function n(id, label, type, year, confidence, summary, sources) {
   return { id, label, type, year, confidence, summary, sources };
@@ -344,6 +360,17 @@ document.querySelector("#memoryButton").addEventListener("click", () => {
   link.download = "onco-theta-research-path.txt";
   link.click();
   URL.revokeObjectURL(url);
+});
+
+document.querySelectorAll("[data-focus]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-focus]").forEach((item) => item.classList.toggle("active", item === button));
+    const id = button.dataset.focus;
+    const brief = cancerBriefs[id];
+    researchBrief.innerHTML = `<h3>${brief.title}</h3><p>${brief.copy}</p>`;
+    selectNode(id);
+    document.querySelector(".universe-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 });
 
 window.addEventListener("resize", render);

@@ -9,11 +9,13 @@ it is not a dashboard and not a normal knowledge graph. discoveries behave like 
 - evidence constellations
 - knowledge gravity
 - time navigation from 2010 to 2026
+- cancer entry presets for lung/nsclc, ovarian/brca, and melanoma/braf
 - contradiction visibility
 - research path memory
 - curiosity mode based on graph topology
 - provenance-first claim lens
 - relationship language for causal, clinical, preclinical, and conflicting evidence
+- source links and a "how to use" research layer below the universe
 
 ## note
 

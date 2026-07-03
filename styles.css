@@ -27,7 +27,6 @@ body {
   margin: 0;
   min-width: 0;
   min-height: 100vh;
-  overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 246, 243, 0.96)),
     linear-gradient(90deg, rgba(0, 0, 0, 0.022) 1px, transparent 1px),
@@ -47,14 +46,14 @@ button {
 }
 
 .theta-shell {
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
-  grid-template-rows: 72px 1fr;
+  grid-template-rows: 72px minmax(760px, calc(100vh - 72px)) auto;
   position: relative;
 }
 
 .theta-top {
-  z-index: 20;
+  z-index: 40;
   display: grid;
   grid-template-columns: 230px minmax(280px, 560px) auto;
   gap: 18px;
@@ -63,6 +62,8 @@ button {
   border-bottom: 1px solid var(--line);
   background: rgba(250, 250, 248, 0.72);
   backdrop-filter: blur(24px) saturate(180%);
+  position: sticky;
+  top: 0;
 }
 
 .mark {
@@ -83,13 +84,11 @@ button {
   background: linear-gradient(145deg, #19191c, #424248);
   font-size: 0.68rem;
   font-weight: 760;
-  letter-spacing: 0;
   box-shadow: var(--shadow);
 }
 
 .mark strong {
   font-size: 1.06rem;
-  letter-spacing: 0;
 }
 
 .temporal-control {
@@ -125,12 +124,6 @@ button {
   color: var(--ink);
   padding: 0 14px;
   font-weight: 680;
-}
-
-.ghost-button:hover,
-.lens-close:hover {
-  border-color: var(--line-strong);
-  background: var(--soft-strong);
 }
 
 .universe-wrap {
@@ -183,9 +176,6 @@ button {
   stroke: rgba(255, 255, 255, 0.92);
   stroke-width: 2.5;
   filter: drop-shadow(0 12px 20px rgba(20, 22, 25, 0.16));
-  transition:
-    r 180ms ease,
-    opacity 180ms ease;
 }
 
 .knowledge-node text {
@@ -239,10 +229,9 @@ button {
 
 .focus-readout h1 {
   margin: 0;
-  max-width: 380px;
+  max-width: 400px;
   font-size: clamp(1.6rem, 2.7vw, 3rem);
   line-height: 1.04;
-  letter-spacing: 0;
 }
 
 .focus-readout p:last-child {
@@ -293,9 +282,8 @@ button {
 
 .claim-lens,
 .curiosity-dock,
-.legend {
-  position: absolute;
-  z-index: 30;
+.legend,
+.research-layer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.72);
@@ -304,6 +292,8 @@ button {
 }
 
 .claim-lens {
+  position: fixed;
+  z-index: 50;
   top: 92px;
   right: 18px;
   width: min(380px, calc(100vw - 36px));
@@ -329,7 +319,6 @@ button {
   margin: 0;
   max-width: 300px;
   font-size: 1.3rem;
-  letter-spacing: 0;
 }
 
 .claim-lens p {
@@ -370,12 +359,14 @@ dd {
   font-weight: 680;
 }
 
-.source-stack {
+.source-stack,
+.research-links {
   display: grid;
   gap: 8px;
 }
 
-.source-stack a {
+.source-stack a,
+.research-links a {
   display: block;
   padding: 10px;
   border: 1px solid var(--line);
@@ -385,7 +376,8 @@ dd {
   text-decoration: none;
 }
 
-.source-stack small {
+.source-stack small,
+.research-links span {
   display: block;
   margin-top: 4px;
   color: var(--muted);
@@ -393,6 +385,8 @@ dd {
 }
 
 .curiosity-dock {
+  position: absolute;
+  z-index: 30;
   left: 18px;
   bottom: 96px;
   width: min(360px, calc(100vw - 36px));
@@ -404,7 +398,8 @@ dd {
   gap: 8px;
 }
 
-.curiosity-item {
+.curiosity-item,
+.cancer-card {
   width: 100%;
   min-height: 40px;
   border: 1px solid var(--line);
@@ -415,17 +410,22 @@ dd {
 }
 
 .curiosity-item strong,
-.curiosity-item span {
+.curiosity-item span,
+.cancer-card strong,
+.cancer-card span {
   display: block;
 }
 
-.curiosity-item span {
+.curiosity-item span,
+.cancer-card span {
   margin-top: 3px;
   color: var(--muted);
   font-size: 0.8rem;
 }
 
 .legend {
+  position: absolute;
+  z-index: 30;
   right: 18px;
   bottom: 24px;
   display: flex;
@@ -463,6 +463,68 @@ dd {
   background: repeating-linear-gradient(90deg, var(--rose) 0 5px, transparent 5px 9px);
 }
 
+.research-layer {
+  margin: 18px;
+  padding: 18px;
+}
+
+.research-intro {
+  max-width: 760px;
+}
+
+.research-intro h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+  line-height: 1.08;
+}
+
+.research-intro p:last-child {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cancer-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.cancer-card.active {
+  border-color: rgba(0, 102, 204, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(0, 102, 204, 0.18);
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 0.9fr;
+  gap: 12px;
+}
+
+.research-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.research-card ol {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.research-card h3 {
+  margin: 0 0 8px;
+}
+
+.research-card p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 @keyframes breathe {
   0%,
   100% {
@@ -485,15 +547,9 @@ dd {
   }
 }
 
-@media (max-width: 820px) {
-  body {
-    overflow: auto;
-  }
-
+@media (max-width: 920px) {
   .theta-shell {
-    min-height: 100vh;
-    height: auto;
-    grid-template-rows: auto 760px;
+    grid-template-rows: auto 760px auto;
   }
 
   .theta-top {
@@ -511,28 +567,23 @@ dd {
   }
 
   .curiosity-dock {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    width: auto;
-    margin: 12px;
+    left: 12px;
+    bottom: 92px;
   }
 
   .legend {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin: 12px;
-  }
-
-  .claim-lens {
-    top: 12px;
     right: 12px;
+    bottom: 16px;
   }
 
   .path-strip {
     left: 12px;
     right: 12px;
     bottom: 12px;
+  }
+
+  .cancer-picker,
+  .research-grid {
+    grid-template-columns: 1fr;
   }
 }

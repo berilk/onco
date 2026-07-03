@@ -65,6 +65,63 @@
         <span><i class="line preclinical"></i>preclinical</span>
         <span><i class="line conflict"></i>conflict</span>
       </section>
+
+      <section class="research-layer" aria-label="research cockpit">
+        <div class="research-intro">
+          <p class="eyebrow">research layer</p>
+          <h2>start with a cancer type, then let the universe suggest where to go next.</h2>
+          <p>
+            use this lower layer when you want a more familiar entry point: cancer presets, source links, and a quick
+            guide for reading the living map above.
+          </p>
+        </div>
+
+        <div class="cancer-picker" id="cancerPicker" aria-label="choose cancer type">
+          <button class="cancer-card active" data-focus="nsclc">
+            <strong>lung / nsclc</strong>
+            <span>kras, egfr, alk, resistance</span>
+          </button>
+          <button class="cancer-card" data-focus="brca">
+            <strong>ovarian / brca</strong>
+            <span>hrd, parp, solo1, assay debate</span>
+          </button>
+          <button class="cancer-card" data-focus="braf">
+            <strong>melanoma / braf</strong>
+            <span>mapk, braf/mek, pd-1 sequencing</span>
+          </button>
+        </div>
+
+        <div class="research-grid">
+          <article class="research-card">
+            <p class="eyebrow">how to use</p>
+            <ol>
+              <li>choose a cancer type below the universe.</li>
+              <li>move the year slider to watch evidence appear.</li>
+              <li>click a discovery to open the claim lens.</li>
+              <li>follow curiosity mode instead of searching manually.</li>
+              <li>save the path when the exploration becomes a thought process.</li>
+            </ol>
+          </article>
+
+          <article class="research-card">
+            <p class="eyebrow">source links</p>
+            <div class="research-links">
+              <a href="https://clinicaltrials.gov/" target="_blank" rel="noreferrer">clinicaltrials.gov<span>trial records and recruitment status</span></a>
+              <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noreferrer">pubmed<span>papers, reviews, contradiction clusters</span></a>
+              <a href="https://www.cancer.gov/" target="_blank" rel="noreferrer">national cancer institute<span>definitions and treatment summaries</span></a>
+              <a href="https://www.fda.gov/drugs" target="_blank" rel="noreferrer">fda drug approvals<span>labels, approvals, safety updates</span></a>
+            </div>
+          </article>
+
+          <article class="research-card">
+            <p class="eyebrow">current lens</p>
+            <div id="researchBrief">
+              <h3>lung / nsclc</h3>
+              <p>begin with driver alterations, then compare therapy evidence and resistance uncertainty.</p>
+            </div>
+          </article>
+        </div>
+      </section>
     </main>
 
     <script src="./app.js"></script>
