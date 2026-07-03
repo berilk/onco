@@ -1,7 +1,9 @@
 # onco
 source-backed cancer research, shown as a graph.
 onco is a static web prototype for exploring relationships between cancer types, biomarkers, drugs, trials, papers, pathways, and resistance mechanisms. it is built to feel like a small research cockpit: searchable, visual, evidence-aware, and easy to publish.
-what it does
+
+what it does?
+
 searches oncology entities like kras g12c, egfr exon 19, brca ovarian, and alk resistance
 renders an interactive knowledge graph
 filters by entity type
