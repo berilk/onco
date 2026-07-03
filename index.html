@@ -54,11 +54,6 @@
         <div id="lensSources" class="source-stack"></div>
       </aside>
 
-      <section class="curiosity-dock" aria-label="curiosity mode">
-        <p class="eyebrow">curiosity mode</p>
-        <div id="curiosityList"></div>
-      </section>
-
       <section class="legend" aria-label="relationship language">
         <span><i class="line causal"></i>causal</span>
         <span><i class="line clinical"></i>clinical</span>
@@ -88,6 +83,14 @@
           <button class="cancer-card" data-focus="braf">
             <strong>melanoma / braf</strong>
             <span>mapk, braf/mek, pd-1 sequencing</span>
+          </button>
+          <button class="cancer-card" data-focus="breast">
+            <strong>breast / her2</strong>
+            <span>her2, trastuzumab, adc evolution</span>
+          </button>
+          <button class="cancer-card" data-focus="crc">
+            <strong>colorectal / msi</strong>
+            <span>msi-high, immunotherapy, kras exclusion</span>
           </button>
         </div>
 
@@ -119,6 +122,11 @@
               <h3>lung / nsclc</h3>
               <p>begin with driver alterations, then compare therapy evidence and resistance uncertainty.</p>
             </div>
+          </article>
+
+          <article class="research-card curiosity-card" aria-label="curiosity mode">
+            <p class="eyebrow">curiosity mode</p>
+            <div id="curiosityList"></div>
           </article>
         </div>
       </section>

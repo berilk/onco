@@ -9,7 +9,7 @@ it is not a dashboard and not a normal knowledge graph. discoveries behave like 
 - evidence constellations
 - knowledge gravity
 - time navigation from 2010 to 2026
-- cancer entry presets for lung/nsclc, ovarian/brca, and melanoma/braf
+- cancer entry presets for lung/nsclc, ovarian/brca, melanoma/braf, breast/her2, and colorectal/msi
 - contradiction visibility
 - research path memory
 - curiosity mode based on graph topology

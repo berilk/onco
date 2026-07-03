@@ -32,7 +32,14 @@ const nodes = [
   n("braf", "BRAF V600E", "mutation", 2011, 88, "A MAPK-activating alteration with strong melanoma therapy history.", ["BRAF melanoma literature"]),
   n("mapk", "MAPK pathway", "pathway", 2010, 80, "A signaling pathway connecting RAS, RAF, MEK, and resistance logic.", ["MAPK reviews"]),
   n("dabrafenib", "BRAF/MEK therapy", "therapy", 2013, 84, "Targeted therapy logic combining BRAF and MEK inhibition.", ["dabrafenib trametinib studies"]),
-  n("pd1", "PD-1 blockade", "therapy", 2014, 81, "Immunotherapy evidence forming a separate but intersecting treatment universe.", ["checkpoint inhibitor trials"])
+  n("pd1", "PD-1 blockade", "therapy", 2014, 81, "Immunotherapy evidence forming a separate but intersecting treatment universe.", ["checkpoint inhibitor trials"]),
+  n("breast", "Breast cancer", "cancer", 2010, 90, "A cancer space where receptor status creates distinct therapeutic universes.", ["NCI breast cancer treatment"]),
+  n("her2", "HER2 amplification", "mutation", 2010, 91, "A targetable alteration that reshaped breast cancer treatment strategy.", ["HER2 breast cancer literature"]),
+  n("trastuzumab", "Trastuzumab", "therapy", 2010, 89, "A foundational HER2-directed therapy with a long clinical evidence base.", ["trastuzumab pivotal studies"]),
+  n("tdxd", "HER2 ADCs", "therapy", 2022, 78, "Antibody-drug conjugates expanded the meaning of HER2-targeted treatment.", ["DESTINY breast studies"]),
+  n("crc", "Colorectal cancer", "cancer", 2010, 88, "A disease context where molecular stratification changes systemic therapy decisions.", ["NCI colorectal cancer treatment"]),
+  n("msi", "MSI-high / dMMR", "mutation", 2015, 85, "A biomarker state associated with immunotherapy sensitivity in colorectal cancer.", ["MSI-high colorectal literature"]),
+  n("cetuximab", "EGFR antibody logic", "therapy", 2012, 74, "Anti-EGFR therapy depends on molecular exclusions such as RAS alterations.", ["colorectal anti-EGFR studies"])
 ];
 
 const edges = [
@@ -57,7 +64,15 @@ const edges = [
   e("braf", "mapk", "causal", 90, "pathway activation", 2011, "BRAF V600E activates MAPK signaling."),
   e("braf", "dabrafenib", "clinical", 84, "targeted therapy", 2013, "BRAF/MEK therapy emerged from pathway logic."),
   e("mapk", "resistance", "preclinical", 58, "pathway escape", 2021, "MAPK reactivation can appear as a resistance concept."),
-  e("pd1", "braf", "conflict", 51, "sequencing question", 2016, "Targeted therapy and immunotherapy sequencing remains context-dependent.")
+  e("pd1", "braf", "conflict", 51, "sequencing question", 2016, "Targeted therapy and immunotherapy sequencing remains context-dependent."),
+  e("breast", "her2", "clinical", 90, "receptor-defined subgroup", 2010, "HER2 status creates a distinct treatment path in breast cancer."),
+  e("her2", "trastuzumab", "clinical", 89, "foundational targeted therapy", 2010, "HER2-directed antibody therapy forms a high-confidence evidence path."),
+  e("her2", "tdxd", "clinical", 78, "adc evolution", 2022, "HER2 antibody-drug conjugates changed the boundary of HER2-targeted therapy."),
+  e("tdxd", "trastuzumab", "preclinical", 55, "therapy lineage", 2022, "ADC evolution builds on antibody targeting but changes payload logic."),
+  e("crc", "msi", "clinical", 84, "immunotherapy biomarker", 2015, "MSI-high/dMMR status can indicate immune sensitivity in colorectal cancer."),
+  e("msi", "pd1", "clinical", 82, "checkpoint sensitivity", 2017, "MSI-high tumors created a tumor-agnostic immunotherapy evidence path."),
+  e("crc", "cetuximab", "clinical", 74, "anti-EGFR therapy context", 2012, "Anti-EGFR logic in colorectal cancer depends on molecular context."),
+  e("kras", "cetuximab", "conflict", 69, "negative selection", 2012, "RAS alterations can exclude benefit from anti-EGFR therapy.")
 ];
 
 const state = {
@@ -92,6 +107,14 @@ const cancerBriefs = {
   braf: {
     title: "melanoma / braf",
     copy: "explore mapk pathway gravity, targeted therapy logic, and the unresolved sequencing question with pd-1 blockade."
+  },
+  breast: {
+    title: "breast / her2",
+    copy: "start with receptor-defined evidence, then follow how her2 therapy evolves from antibody logic into adc strategies."
+  },
+  crc: {
+    title: "colorectal / msi",
+    copy: "compare immunotherapy-sensitive msi-high biology with anti-egfr treatment logic and kras exclusion."
   }
 };
 
